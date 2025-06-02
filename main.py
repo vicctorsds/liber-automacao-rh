@@ -59,7 +59,7 @@ class CVAutomationSystem:
         self.logger.debug(f"Extraindo dados do corpo:\n{email_body}")
         data = {'nome': None, 'telefone': None, 'vaga': None}
         
-        # Tentar padrão específico para o Roberto
+        # Tentar padrão específico (caso do Roberto)
         roberto_match = re.search(
             r'Nome completo:\s*([A-Za-zÀ-ÿ\s]+?)(?:\n|Vaga|\.)',
             email_body, 
@@ -88,7 +88,7 @@ class CVAutomationSystem:
         if telefone_match:
             data['telefone'] = telefone_match.group(1).strip()
         
-        # Vaga - removendo "de" no início
+        # Vaga - removendo "de" no início da vaga.
         vaga_match = re.search(
             r'(?:Vaga|vaga de|para a vaga)[:\s]*(de\s)?([A-Za-zÀ-ÿ\s\-]+?)(?:\n|\.|$)',
             email_body, 
@@ -290,10 +290,10 @@ class CVAutomationSystem:
 def main():
     sistema = CVAutomationSystem()
     
-    # Configurações de e-mail (USAR VARIÁVEIS DE AMBIENTE!)
+    # Configurações de e-mail
     IMAP_SERVER = "imap.gmail.com"  
     EMAIL_USER = "automacaoliber@gmail.com"
-    EMAIL_PASS = "csxj oino alhq rmxu"  # REMOVA DEPOIS DOS TESTES!
+    EMAIL_PASS = "csxj oino alhq rmxu"  
     
     print("\n=== BUSCANDO E-MAIS REAIS ===")
     sistema.fetch_and_process_emails(IMAP_SERVER, EMAIL_USER, EMAIL_PASS)
